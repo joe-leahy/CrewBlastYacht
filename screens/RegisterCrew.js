@@ -5,18 +5,9 @@ import { useNavigation } from '@react-navigation/core'
 import { LinearGradient } from 'expo-linear-gradient'
 
 
-const Home = () => {
+const RegisterCrew = () => {
 
   const navigation = useNavigation()
-
-  const handleSignOut = () => {
-    auth
-    .signOut()
-    .then(()=>{
-      navigation.replace("Login_2")
-    })
-    .catch(error => alert(error.message))
-  }
 
   return (
     <View style={styles.container}>
@@ -25,18 +16,18 @@ const Home = () => {
         colors={['white', '#31c5f4']}
         style={styles.background}
       />
-      <Text style={styles.text}>Welcome: {auth.currentUser.email}</Text>
+      <Text style={styles.text}>New Crewmember</Text>
       <TouchableOpacity
-      onPress={handleSignOut}
+      onPress={()=>{navigation.replace('Register_1')}}
       style={styles.button}
       >
-        <Text style={styles.buttonText}>Sign Out</Text>
+        <Text style={styles.buttonText}>Back</Text>
       </TouchableOpacity>
     </View>
   )
 }
 
-export default Home
+export default RegisterCrew
 
 const styles = StyleSheet.create({
   container:{

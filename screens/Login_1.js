@@ -1,43 +1,20 @@
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient'
 import { auth } from '../firebase'
 import { useNavigation } from '@react-navigation/core'
+import Login_2 from './Login_2'
+import Register_1 from './Register_1'
 
-const Login = () => {
-
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+const Login_1 = () => {
 
  const navigation = useNavigation();
 
-  useEffect(() =>{
-   const unsubscribe = auth.onAuthStateChanged(user => {
-      if(user){
-        navigation.replace('Home')
-      }
-    })
-    return unsubscribe
-  },[])
-
-  const handleSignUp = () => {
-    auth
-    .createUserWithEmailAndPassword(email, password)
-    .then(userCredentials => {
-      const user = userCredentials.user;
-      console.log(`Registered with: ${user.email}`)
-  })
-    .catch(error => alert(error.message))
-}
-
   const handleLogin = () => {
-    auth
-    .signInWithEmailAndPassword(email, password)
-    .then(userCredentials => {
-      const user = userCredentials.user;
-      console.log(`Logged in with: ${user.email}`)
-  })
-    .catch(error => alert(error.message))
+    navigation.replace('Login_2')
+}
+const handleSignUp = () => {
+  navigation.replace('Register_1')
 }
 
 
@@ -45,24 +22,12 @@ const Login = () => {
     <KeyboardAvoidingView style={styles.container} behavior='padding'>
      <LinearGradient
         // Background Linear Gradient
-        colors={['#F29849', '#82C9D9']}
+        colors={['white', '#31c5f4']}
         style={styles.background}
       />
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder='Email'
-          value = { email }
-          onChangeText={text => setEmail(text)}
-          style={styles.input}
-        />
-        <TextInput
-          placeholder='Password'
-          value = { password }
-          onChangeText={text => setPassword(text)}
-          style={styles.input}
-          secureTextEntry
-        />
-      </View>
+      <Image style={styles.logo}
+        source={require("../assets/logo.png")}
+      />
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           onPress={handleLogin}
@@ -74,7 +39,7 @@ const Login = () => {
           onPress={handleSignUp}
           style={[styles.button, styles.buttonOutline]}
           >
-          <Text style={styles.buttonOutlineText}>Register</Text>
+          <Text style={styles.buttonOutlineText}>Register New Account</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
@@ -82,7 +47,7 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Login_1
 
 const styles = StyleSheet.create({
   container:{
@@ -90,15 +55,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  logo:{
+    width: 280,
+    height: 200,
+    zIndex:100,
+  },
   background: {
     position: 'absolute',
     left: 0,
     right: 0,
     top: 0,
     height: '100%',
-    opacity:.75
+    opacity:.5
   },
   inputContainer:{
+      marginTop:40,
       width:'80%',
     },
   input:{
@@ -112,10 +83,10 @@ const styles = StyleSheet.create({
     width:'60%',
     justifyContent:'center',
     alignItems:'center',
-    marginTop:40,
+    marginTop:50,
     },
   button:{
-    backgroundColor:'#03738C',
+    backgroundColor:'grey',
     width:'100%',
     padding: 15,
     borderRadius:10,
@@ -124,11 +95,11 @@ const styles = StyleSheet.create({
   buttonOutline:{
     backgroundColor:'white',
     marginTop: 5,
-    borderColor:'#03738C',
+    borderColor:'grey',
     borderWidth:2,
     },
   buttonOutlineText:{
-    color:'#03738C',
+    color:'grey',
     fontWeight:'700',
     fontSize: 16,
 

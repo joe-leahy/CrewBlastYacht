@@ -6,12 +6,13 @@ import 'firebase/compat/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCByzUOWxAXe6YhTgeE0XzQ9B3E32vPlW4",
-  authDomain: "fir-auth-47693.firebaseapp.com",
-  projectId: "fir-auth-47693",
-  storageBucket: "fir-auth-47693.appspot.com",
-  messagingSenderId: "768560735493",
-  appId: "1:768560735493:web:3eca6aa40dd0cbfe67836c"
+  apiKey: "AIzaSyDKOfUVbzYUI6WxF3Ofem2daUC-CdBJlNY",
+  authDomain: "crewblast-yacht.firebaseapp.com",
+  projectId: "crewblast-yacht",
+  storageBucket: "crewblast-yacht.appspot.com",
+  messagingSenderId: "348540446154",
+  appId: "1:348540446154:web:784c263660bfd10f611b33",
+  measurementId: "G-22BW6D303N"
 };
 
 // Initialize Firebase
