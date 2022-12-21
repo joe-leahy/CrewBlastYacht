@@ -5,21 +5,9 @@ import { auth } from '../firebase'
 import { useNavigation } from '@react-navigation/core'
 import Icon from 'react-native-vector-icons/Octicons'
 
-const Login = () => {
-
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+const Register_1 = () => {
 
  const navigation = useNavigation();
-
-  useEffect(() =>{
-   const unsubscribe = auth.onAuthStateChanged(user => {
-      if(user){
-        navigation.replace('Home')
-      }
-    })
-    return unsubscribe
-  },[])
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior='padding'>
@@ -37,6 +25,7 @@ const Login = () => {
       <Image style={styles.logo}
         source={require("../assets/logo.png")}
       />
+      <Text style={styles.text}>Register Account As:</Text>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
          onPress={()=>{navigation.replace('RegisterCrew')}}
@@ -56,7 +45,7 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Register_1
 
 const styles = StyleSheet.create({
   container:{
@@ -68,6 +57,7 @@ const styles = StyleSheet.create({
     width: 280,
     height: 200,
     zIndex:100,
+    marginBottom:20
   },
   background: {
     position: 'absolute',
@@ -99,7 +89,7 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     alignItems:'center',
     flexDirection:'row',
-    marginTop:50,
+    marginTop:20,
     },
   button:{
     backgroundColor:'grey',
@@ -129,7 +119,13 @@ const styles = StyleSheet.create({
     fontWeight:'700',
     fontSize: 13,
     textAlign:'center'
-    }
+    },
+    text:{
+      color:'darkslategrey',
+      fontWeight:'800',
+      fontSize: 14,
+      textAlign:'center'
+      },
 
 
 

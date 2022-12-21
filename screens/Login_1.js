@@ -17,7 +17,6 @@ const handleSignUp = () => {
   navigation.replace('Register_1')
 }
 
-
   return (
     <KeyboardAvoidingView style={styles.container} behavior='padding'>
      <LinearGradient
