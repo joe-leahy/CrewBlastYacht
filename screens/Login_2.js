@@ -1,4 +1,5 @@
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Button } from 'react-native'
+import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Button} from 'react-native'
+import Checkbox from 'expo-checkbox'
 import React, { useEffect, useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient'
 import { auth } from '../firebase'
@@ -14,9 +15,10 @@ const Login_2 = () => {
 
   useEffect(() =>{
    const unsubscribe = auth.onAuthStateChanged(user => {
-      if(user){
-        navigation.replace('Home')
+      if(user.displayName === 'Crew'){
+        navigation.replace('CrewHome')
       }
+      else{navigation.replace('ManagementHome')}
     })
     return unsubscribe
   },[])
@@ -27,10 +29,10 @@ const Login_2 = () => {
     .then(userCredentials => {
       const user = userCredentials.user;
       console.log(`Logged in with: ${user.email}`)
+      console.log(user.displayName)
   })
     .catch(error => alert(error.message))
 }
-
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior='padding'>

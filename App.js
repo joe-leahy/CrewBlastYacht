@@ -4,10 +4,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login_1 from './screens/Login_1';
 import Login_2 from './screens/Login_2';
-import Home from './screens/Home';
+import CrewHome from './screens/CrewHome';
+import ManagementHome from './screens/ManagementHome';
 import Register_1 from './screens/Register_1'
 import RegisterCrew from './screens/RegisterCrew'
 import RegisterManagement from './screens/RegisterManagement';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -23,7 +25,8 @@ export default function App() {
         <Stack.Screen options={{headerShown: false}} name ='Register_1' component={Register_1}/>
         <Stack.Screen options={{headerShown: false}} name ='RegisterCrew' component={RegisterCrew}/>
         <Stack.Screen options={{headerShown: false}} name ='RegisterManagement' component={RegisterManagement}/>
-        <Stack.Screen options={{headerShown: false}} name ='Home' component={Home}/>
+        <Stack.Screen options={{headerShown: false}} name ='CrewHome' component={CrewHome}/>
+        <Stack.Screen options={{headerShown: false}} name ='ManagementHome' component={ManagementHome}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

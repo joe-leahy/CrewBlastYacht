@@ -29,7 +29,7 @@ const RegisterCrew = () => {
   useEffect(() => {
     const unsubscribe = auth().onAuthStateChanged((user) => {
       if (user) {
-        navigation.replace("Home");
+        navigation.replace("CrewHome");
       }
     });
     return unsubscribe;
@@ -47,6 +47,7 @@ const RegisterCrew = () => {
             phone,
           });
           console.log("Document added with ID: ", docRef.id);
+          auth().currentUser.updateProfile({displayName:"Crew"})
         })
         .catch((error) => alert(error.message));
     } else {

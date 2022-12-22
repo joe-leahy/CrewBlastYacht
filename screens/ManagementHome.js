@@ -7,13 +7,13 @@ import firebase from "firebase/compat";
 import { collection, doc, querySnapshot, where } from "firebase/firestore";
 import firestore from "firebase/firestore";
 
-const Home = () => {
+const ManagementHome = () => {
   const [name, setName] = useState("");
 
   useEffect(() => {
     firebase
       .firestore()
-      .collection("crewmembers")
+      .collection("management")
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((snapshot) => {
@@ -45,6 +45,7 @@ const Home = () => {
         colors={["white", "#31c5f4"]}
         style={styles.background}
       />
+      <Text style={styles.text}>MANAGEMENT</Text>
       <Text style={styles.text}>Welcome: {name}</Text>
       <TouchableOpacity onPress={handleSignOut} style={styles.button}>
         <Text style={styles.buttonText}>Sign Out</Text>
@@ -53,7 +54,7 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default ManagementHome;
 
 const styles = StyleSheet.create({
   container: {
