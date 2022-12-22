@@ -4,7 +4,8 @@ import {
   TouchableOpacity,
   View,
   TextInput,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Alert
 } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/core";
@@ -15,101 +16,95 @@ import { useState, useEffect } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db, auth } from "../firebase";
 
-const RegisterManagement = () => {
+const BlastForm = () => {
+
+  const [to, setTo] = useState("")
+  const [vi, setVi] = useState("")
+  const [position, setPosition] = useState("")
+  const [date, setDate] = useState("")
+  const [phone, setPhone] = useState("")
+  const [body, setBody] = useState("")
+
+
   const navigation = useNavigation();
-  const auth = firebase.auth;
-  const firestore = firebase.firestore;
 
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [password2, setPassword2] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const createAlert = () =>
+    Alert.alert(
+      "Blast Sent!",
+      "Thanks for using CrewBlast Yachting!",
+        {
+          text: "Okl",
+          onPress: () => navigation.replace("ManagementHome"),
+          style: "cancel"
+        }
+    );
 
-  useEffect(() => {
-    const unsubscribe = auth().onAuthStateChanged((user) => {
-      if (user) {
-        navigation.replace("ManagementHome");
-      }
+  const handleBlast = () => {
+    setBody(`Crew Needed! ${vi} is looking for a ${position} starting on ${date}. Please contact ${phone} for more information!`)
+    addDoc(collection(db, "messages"), {
+      to,
+      body
     });
-    return unsubscribe;
-  }, []);
-
-  const handleSignUp = () => {
-    if (password == password2) {
-      auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then(() => {
-          const docRef = addDoc(collection(db, "management"), {
-            uid: auth().currentUser.uid,
-            name,
-            email,
-            phone,
-          });
-          console.log("Document added with ID: ", docRef.id);
-        })
-        .catch((error) => alert(error.message));
-    } else {
-      alert("Passwords don't match!");
-    }
-  };
+    createAlert();
+  }
 
   return (
     <KeyboardAvoidingView style={styles.container}>
       <LinearGradient colors={["white", "#31c5f4"]} style={styles.background} />
-      <Text style={styles.text}>New Crew Managament Profile</Text>
+      <Text style={styles.text}>Blast Request Form</Text>
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder="Name"
-          value={name}
-          onChangeText={(text) => setName(text)}
+          placeholder="To"
+          value={to}
+          onChangeText={(text) => setTo(text)}
           style={styles.input}
         />
         <TextInput
-          placeholder="Email"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
+          placeholder="Vessel Information"
+          value={vi}
+          onChangeText={(text) => setVi(text)}
           style={styles.input}
         />
         <TextInput
-          placeholder="Password"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
+          placeholder="Position"
+          value={position}
+          onChangeText={(text) => setPosition(text)}
           style={styles.input}
-          secureTextEntry
         />
         <TextInput
-          placeholder="Repeat Password"
-          value={password2}
-          onChangeText={(text) => setPassword2(text)}
+          placeholder="Date"
+          value={date}
+          onChangeText={(text) => setDate(text)}
           style={styles.input}
-          secureTextEntry
         />
         <TextInput
-          placeholder="Phone Number"
+          placeholder="Contact Phone Number"
           value={phone}
           onChangeText={(text) => setPhone(text)}
           style={styles.input}
         />
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={handleSignUp} style={styles.button}>
-          <Text style={styles.buttonText}>Register</Text>
+      <TouchableOpacity
+          onPress={handleBlast}
+          style={styles.blastButton}
+        >
+          <Text style={styles.buttonText}>Submit!</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            navigation.replace("Register_1");
+            navigation.replace("ManagementHome");
           }}
           style={styles.button}
         >
-          <Text style={styles.buttonText}>Back</Text>
+          <Text style={styles.buttonText}>Go Back</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
-};
+}
 
-export default RegisterManagement;
+export default BlastForm
 
 const styles = StyleSheet.create({
   container: {
@@ -127,12 +122,29 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "grey",
-    width: "60%",
+    width: "50%",
     padding: 15,
     borderRadius: 10,
     alignItems: "center",
     marginTop: 40,
   },
+  blastButton: {
+    backgroundColor: "#31c5f4",
+    width: "80%",
+    padding: 15,
+    alignItems: "center",
+    marginTop: 20,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#fff'
+
+  },
+  buttonContainer:{
+    width:'60%',
+    justifyContent:'center',
+    alignItems:'center',
+    marginTop:20,
+    },
   buttonText: {
     color: "white",
     fontWeight: "700",
@@ -154,4 +166,4 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 5,
   },
-});
+  });

@@ -46,7 +46,7 @@ const RegisterCrew = () => {
             email,
             phone,
           });
-          console.log("Document added with ID: ", docRef.id);
+          console.log("Document added with ID: ", docRef.uid);
           auth().currentUser.updateProfile({displayName:"Crew"})
         })
         .catch((error) => alert(error.message));

@@ -13,15 +13,15 @@ const Login_2 = () => {
 
  const navigation = useNavigation();
 
-  useEffect(() =>{
-   const unsubscribe = auth.onAuthStateChanged(user => {
-      if(user.displayName === 'Crew'){
-        navigation.replace('CrewHome')
-      }
-      else{navigation.replace('ManagementHome')}
-    })
-    return unsubscribe
-  },[])
+  // useEffect(() =>{
+  //  const unsubscribe = auth.onAuthStateChanged(user => {
+  //     if(user.displayName === 'Crew'){
+  //       navigation.replace('CrewHome')
+  //     }
+  //     else{navigation.replace('ManagementHome')}
+  //   })
+  //   return unsubscribe
+  // },[])
 
   const handleLogin = () => {
     auth
@@ -29,7 +29,10 @@ const Login_2 = () => {
     .then(userCredentials => {
       const user = userCredentials.user;
       console.log(`Logged in with: ${user.email}`)
-      console.log(user.displayName)
+      if(user.displayName === 'Crew'){
+        navigation.replace('CrewHome')
+      }
+      else{navigation.replace('ManagementHome')}
   })
     .catch(error => alert(error.message))
 }

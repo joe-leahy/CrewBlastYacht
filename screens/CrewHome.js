@@ -8,7 +8,11 @@ import { collection, doc, querySnapshot, where } from "firebase/firestore";
 import firestore from "firebase/firestore";
 
 const CrewHome = () => {
+
   const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+
 
   useEffect(() => {
     firebase
@@ -22,6 +26,8 @@ const CrewHome = () => {
             data.email.toLowerCase() == auth.currentUser.email.toLowerCase()
           ) {
             setName(data.name);
+            setEmail(data.email)
+            setPhone(data.phone)
           }
         });
       });
@@ -45,8 +51,10 @@ const CrewHome = () => {
         colors={["white", "#31c5f4"]}
         style={styles.background}
       />
-       <Text style={styles.text}>CREW</Text>
-      <Text style={styles.text}>Welcome: {name}</Text>
+       <Text style={styles.header}>Crewmember Information</Text>
+      <Text style={styles.text}>Name: {name}</Text>
+      <Text style={styles.text}>Email: {email}</Text>
+      <Text style={styles.text}>Phone: {phone}</Text>
       <TouchableOpacity onPress={handleSignOut} style={styles.button}>
         <Text style={styles.buttonText}>Sign Out</Text>
       </TouchableOpacity>
@@ -83,9 +91,13 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 16,
   },
-  text: {
+  header: {
     fontWeight: "700",
     fontSize: 16,
     flexDirection: "column",
+    marginBottom:10,
   },
+  text:{
+    margin:10,
+  }
 });

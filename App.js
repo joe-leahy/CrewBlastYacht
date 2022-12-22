@@ -9,7 +9,7 @@ import ManagementHome from './screens/ManagementHome';
 import Register_1 from './screens/Register_1'
 import RegisterCrew from './screens/RegisterCrew'
 import RegisterManagement from './screens/RegisterManagement';
-
+import BlastForm from './screens/BlastForm';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +27,7 @@ export default function App() {
         <Stack.Screen options={{headerShown: false}} name ='RegisterManagement' component={RegisterManagement}/>
         <Stack.Screen options={{headerShown: false}} name ='CrewHome' component={CrewHome}/>
         <Stack.Screen options={{headerShown: false}} name ='ManagementHome' component={ManagementHome}/>
+        <Stack.Screen options={{headerShown: false}} name ='BlastForm' component={BlastForm}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

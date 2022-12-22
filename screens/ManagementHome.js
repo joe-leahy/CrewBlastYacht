@@ -9,6 +9,8 @@ import firestore from "firebase/firestore";
 
 const ManagementHome = () => {
   const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     firebase
@@ -22,6 +24,8 @@ const ManagementHome = () => {
             data.email.toLowerCase() == auth.currentUser.email.toLowerCase()
           ) {
             setName(data.name);
+            setEmail(data.email)
+            setPhone(data.phone)
           }
         });
       });
@@ -45,14 +49,20 @@ const ManagementHome = () => {
         colors={["white", "#31c5f4"]}
         style={styles.background}
       />
-      <Text style={styles.text}>MANAGEMENT</Text>
-      <Text style={styles.text}>Welcome: {name}</Text>
+       <Text style={styles.header}>Management Information</Text>
+      <Text style={styles.text}>Name: {name}</Text>
+      <Text style={styles.text}>Email: {email}</Text>
+      <Text style={styles.text}>Phone: {phone}</Text>
+      <TouchableOpacity onPress={()=>navigation.replace("BlastForm")} style={styles.blastButton}>
+        <Text style={styles.buttonText}>Create New Blast!</Text>
+      </TouchableOpacity>
       <TouchableOpacity onPress={handleSignOut} style={styles.button}>
         <Text style={styles.buttonText}>Sign Out</Text>
       </TouchableOpacity>
     </View>
   );
 };
+
 
 export default ManagementHome;
 
@@ -72,6 +82,14 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "grey",
+    width: "40%",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginTop: 40,
+  },
+  blastButton: {
+    backgroundColor: "#31c5f4",
     width: "60%",
     padding: 15,
     borderRadius: 10,
@@ -83,9 +101,13 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 16,
   },
-  text: {
+  header: {
     fontWeight: "700",
     fontSize: 16,
     flexDirection: "column",
+    marginBottom:10,
   },
+  text:{
+    margin:10,
+  }
 });
