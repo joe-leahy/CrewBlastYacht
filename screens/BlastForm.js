@@ -15,6 +15,7 @@ import "firebase/firestore";
 import { useState, useEffect } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db, auth } from "../firebase";
+import { SelectList } from "react-native-dropdown-select-list";
 
 const BlastForm = () => {
 
@@ -25,6 +26,20 @@ const BlastForm = () => {
   const [phone, setPhone] = useState("")
   const [body, setBody] = useState("")
 
+  const data = [
+    {key:'1', value:'Deck Department', disabled:true},
+    {key:'2', value:'Captain'},
+    {key:'3', value:'First Mate'},
+    {key:'4', value:'Bosun'},
+    {key:'5', value:'Deckhand'},
+    {key:'6', value:'Engineering Department', disabled:true},
+    {key:'7', value:'Chief Engineer'},
+    {key:'8', value:'Second Engineer'},
+    {key:'9', value:'Interior Department', disabled:true},
+    {key:'10', value:'Cheif Stewardess'},
+    {key:'11', value:'Stewardess'},
+]
+
 
   const navigation = useNavigation();
 
@@ -33,7 +48,7 @@ const BlastForm = () => {
       "Blast Sent!",
       "Thanks for using CrewBlast Yachting!",
         {
-          text: "Okl",
+          text: "Ok",
           onPress: () => navigation.replace("ManagementHome"),
           style: "cancel"
         }
@@ -65,12 +80,12 @@ const BlastForm = () => {
           onChangeText={(text) => setVi(text)}
           style={styles.input}
         />
-        <TextInput
-          placeholder="Position"
-          value={position}
-          onChangeText={(text) => setPosition(text)}
-          style={styles.input}
-        />
+        <SelectList
+        setSelected={(val) => setPosition(val)}
+        data={data}
+        placeholder = "Position"
+        save="value"
+    />
         <TextInput
           placeholder="Date"
           value={date}
