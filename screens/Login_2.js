@@ -13,15 +13,15 @@ const Login_2 = () => {
 
  const navigation = useNavigation();
 
-  // useEffect(() =>{
-  //  const unsubscribe = auth.onAuthStateChanged(user => {
-  //     if(user.displayName === 'Crew'){
-  //       navigation.replace('CrewHome')
-  //     }
-  //     else{navigation.replace('ManagementHome')}
-  //   })
-  //   return unsubscribe
-  // },[])
+  useEffect(() =>{
+   const unsubscribe = auth.onAuthStateChanged(user => {
+      if(user.displayName === 'Crew'){
+        navigation.replace('CrewHome')
+      }
+      else{navigation.replace('ManagementHome')}
+    })
+    return unsubscribe
+  },[])
 
   const handleLogin = () => {
     auth
